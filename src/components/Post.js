@@ -9,13 +9,24 @@ import {
 } from "@material-ui/core";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import moment from "moment";
 
 import { useSelector } from "react-redux";
 const Post = (props) => {
   const { contents, image_url, insert_dt, user_info, like_cnt, type } = props;
-  const { user_profile, user_name } = user_info;
+  const { user_profile, user_name, user_id } = user_info;
 
-  const useCheck = useSelector((state) => state.user.user);
+  const [showUpdateBtn, setShowUpdateBtn] = React.useState(false);
+  const userInfo = useSelector((state) => state.user.user);
+
+  React.useEffect(() => {
+    if (userInfo !== null) {
+      if (userInfo.uid === user_id) {
+        setShowUpdateBtn(true);
+      }
+    }
+  }, []);
+
   const userProfile =
     user_profile === "undefined" ? "/static/images/avatar/1.jpg" : user_profile;
 
@@ -37,9 +48,13 @@ const Post = (props) => {
           </Grid>
           <Grid style={{ display: "flex" }} direction="row" alignItems="center">
             <Typography>19시간전</Typography>
-            <Button variant="outlined" style={{ marginLeft: "20px" }}>
-              수정
-            </Button>
+            {showUpdateBtn ? (
+              <Button variant="outlined" style={{ marginLeft: "20px" }}>
+                수정
+              </Button>
+            ) : (
+              ""
+            )}
           </Grid>
         </Grid>
       </Container>

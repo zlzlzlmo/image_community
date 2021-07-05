@@ -27,7 +27,18 @@ const PostList = () => {
       </Container>
       <Grid style={{ position: "relative", paddingBottom: "100px" }}>
         {post_list.map((p, idx) => {
-          return <Post key={p.id} {...p}></Post>;
+          return (
+            <Grid
+              onClick={() =>
+                history.push({
+                  pathname: `/postDetail/${p.id}`,
+                  state: { p },
+                })
+              }
+            >
+              <Post key={p.id} {...p}></Post>
+            </Grid>
+          );
           // switch (p.type) {
           //   case "post1":
           //     return <Post1 key={p.id} {...p}></Post1>;
