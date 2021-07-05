@@ -99,6 +99,25 @@ const signupFB = (id, pwd, userName) => {
   };
 };
 
+const loginCheckFB = () => {
+  return function (dispatch, getState, { history }) {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        dispatch(
+          setUser({
+            user_name: user.displayName,
+            user_profile: "",
+            id: user.email,
+            uid: user.uid,
+          })
+        );
+      } else {
+        dispatch(logOut());
+      }
+    });
+  };
+};
+
 export default handleActions(
   {
     [SET_USER]: (state, action) =>
@@ -126,6 +145,7 @@ const actionCreators = {
   signupFB,
   loginFB,
   logoutFB,
+  loginCheckFB,
 };
 
 export { actionCreators };

@@ -11,8 +11,19 @@ import SignUp from "../pages/SignUp";
 import PostList from "../pages/PostList";
 import PostDetail from "../pages/PostDetail";
 import PostWrite from "../pages/PostWrite";
+import { useDispatch } from "react-redux";
+import { apiKey } from "./firebase";
+import { actionCreators as userActions } from "../redux/module/user";
 
 function App() {
+  const dispatch = useDispatch();
+  const _session_key = `firebase:authUser:${apiKey}:[DEFAULT]`;
+  const is_session = sessionStorage.getItem(_session_key) ? true : false;
+  React.useEffect(() => {
+    if (is_session) {
+      dispatch(userActions.loginCheckFB());
+    }
+  }, []);
   return (
     <>
       <ConnectedRouter history={history}>

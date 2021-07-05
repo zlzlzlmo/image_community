@@ -9,11 +9,13 @@ import {
 } from "@material-ui/core";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+
+import { useSelector } from "react-redux";
 const Post = (props) => {
-  console.log("postProps : ", props);
   const { contents, image_url, insert_dt, user_info, like_cnt, type } = props;
   const { user_profile, user_name } = user_info;
 
+  const useCheck = useSelector((state) => state.user.user);
   const userProfile =
     user_profile === "undefined" ? "/static/images/avatar/1.jpg" : user_profile;
 
@@ -76,7 +78,6 @@ export const Post1Box = ({ contents, image_url, like_cnt }) => {
   const postImgStyle = {
     width: "100%",
     height: "252px",
-    "object-fit": "cover",
   };
 
   const likeCnt = like_cnt === undefined ? 0 : like_cnt;
@@ -85,7 +86,9 @@ export const Post1Box = ({ contents, image_url, like_cnt }) => {
   return (
     <>
       <Container>
-        <Grid style={{ margin: "30px 0 10px 0" }}>{content}</Grid>
+        <div style={{ margin: "30px 0 10px 0" }}>
+          <Typography>{content}</Typography>
+        </div>
       </Container>
       <Grid>
         <img src={image_url} style={postImgStyle}></img>
@@ -111,7 +114,6 @@ export const Post2Box = ({ contents, image_url, like_cnt }) => {
   const postImgStyle = {
     width: "100%",
     height: "252px",
-    "object-fit": "cover",
   };
 
   const likeCnt = like_cnt === undefined ? 0 : like_cnt;
@@ -160,11 +162,9 @@ export const Post3Box = ({ contents, image_url, like_cnt }) => {
   const postImgStyle = {
     width: "100%",
     height: "252px",
-    "object-fit": "cover",
   };
 
   const content = contents === undefined ? "텍스트를 입력해주세요" : contents;
-
   const likeCnt = like_cnt === undefined ? 0 : like_cnt;
 
   return (

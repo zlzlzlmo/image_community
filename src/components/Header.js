@@ -14,7 +14,6 @@ const Header = () => {
   const is_login = sessionStorage.getItem(_session_key);
 
   const dispatch = useDispatch();
-  console.log("is_login : ", is_login);
   useEffect(() => {
     let cookie = getCookie("user_id");
   }, []);
