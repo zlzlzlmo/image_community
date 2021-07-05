@@ -17,13 +17,25 @@ import { getCookie, setCookie, deleteCookie } from "../shared/Cookie";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { actionCreators as userActions } from "../redux/module/user";
-import Post, { Post1Box } from "../components/Post";
+import Post, { Post1Box, Post2Box, Post3Box } from "../components/Post";
 
 const PostWrite = () => {
   const postImgStyle = {
     width: "100%",
     height: "252px",
     "object-fit": "cover",
+  };
+
+  const [postType, setPostType] = React.useState("post1");
+  const [radioValue, setRadioValue] = React.useState("post1");
+  const [textContent, setTextContent] = React.useState(null);
+  const handleChange = (e) => {
+    setRadioValue(e.target.value);
+  };
+
+  const handleTextArea = (e) => {
+    setTextContent(e.target.value);
+    console.log("textContent : ", textContent);
   };
   return (
     <>
@@ -42,12 +54,12 @@ const PostWrite = () => {
           <RadioGroup
             aria-label="layout"
             name="layout"
-            // value={value}
-            // onChange={handleChange}
+            value={radioValue}
+            onChange={handleChange}
           >
             <FormControlLabel
               value="post1"
-              control={<Radio />}
+              control={<Radio selected />}
               label="텍스트 상단 이미지 하단형"
             />
             <FormControlLabel
@@ -67,12 +79,21 @@ const PostWrite = () => {
           <Typography variant="h4" style={{ fontWeight: 500 }}>
             미리보기
           </Typography>
-          <Post1Box></Post1Box>
+          {(function () {
+            if (radioValue === "post1") {
+              return <Post1Box contents={textContent}></Post1Box>;
+            } else if (radioValue === "post2") {
+              return <Post2Box contents={textContent}></Post2Box>;
+            } else if (radioValue === "post3") {
+              return <Post3Box contents={textContent}></Post3Box>;
+            }
+          })()}
         </Grid>
         <Grid>
           <Typography style={{ fontWeight: 500 }}>게시글 내용</Typography>
           <TextareaAutosize
             style={{ resize: "none", width: "100%", height: "200px" }}
+            onChange={handleTextArea}
           />
         </Grid>
 

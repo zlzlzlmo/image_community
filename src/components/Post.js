@@ -78,10 +78,14 @@ export const Post1Box = ({ contents, image_url, like_cnt }) => {
     height: "252px",
     "object-fit": "cover",
   };
+
+  const likeCnt = like_cnt === undefined ? 0 : like_cnt;
+  const content = contents === undefined ? "텍스트를 입력해주세요" : contents;
+
   return (
     <>
       <Container>
-        <Grid style={{ margin: "30px 0 10px 0" }}>{contents}</Grid>
+        <Grid style={{ margin: "30px 0 10px 0" }}>{content}</Grid>
       </Container>
       <Grid>
         <img src={image_url} style={postImgStyle}></img>
@@ -94,7 +98,7 @@ export const Post1Box = ({ contents, image_url, like_cnt }) => {
           alignItems="center"
           style={{ marginTop: "20px" }}
         >
-          <Typography>좋아요 {like_cnt}개</Typography>
+          <Typography>좋아요 {likeCnt}개</Typography>
 
           <FavoriteBorderIcon></FavoriteBorderIcon>
         </Grid>
@@ -109,6 +113,9 @@ export const Post2Box = ({ contents, image_url, like_cnt }) => {
     height: "252px",
     "object-fit": "cover",
   };
+
+  const likeCnt = like_cnt === undefined ? 0 : like_cnt;
+  const content = contents === undefined ? "텍스트를 입력해주세요" : contents;
   return (
     <>
       <Grid
@@ -128,7 +135,7 @@ export const Post2Box = ({ contents, image_url, like_cnt }) => {
             boxSizing: "border-box",
           }}
         >
-          {contents}
+          {content}
         </Grid>
       </Grid>
 
@@ -140,7 +147,7 @@ export const Post2Box = ({ contents, image_url, like_cnt }) => {
           alignItems="center"
           style={{ marginTop: "20px" }}
         >
-          <Typography>좋아요 {like_cnt}개</Typography>
+          <Typography>좋아요 {likeCnt}개</Typography>
 
           <FavoriteBorderIcon></FavoriteBorderIcon>
         </Grid>
@@ -155,6 +162,11 @@ export const Post3Box = ({ contents, image_url, like_cnt }) => {
     height: "252px",
     "object-fit": "cover",
   };
+
+  const content = contents === undefined ? "텍스트를 입력해주세요" : contents;
+
+  const likeCnt = like_cnt === undefined ? 0 : like_cnt;
+
   return (
     <>
       <Grid
@@ -171,7 +183,7 @@ export const Post3Box = ({ contents, image_url, like_cnt }) => {
             boxSizing: "border-box",
           }}
         >
-          {contents}
+          {content}
         </Grid>
         <Grid style={{ width: "50%" }}>
           <img src={image_url} style={postImgStyle}></img>
@@ -186,7 +198,7 @@ export const Post3Box = ({ contents, image_url, like_cnt }) => {
           alignItems="center"
           style={{ marginTop: "20px" }}
         >
-          <Typography>좋아요 {like_cnt}개</Typography>
+          <Typography>좋아요 {likeCnt}개</Typography>
 
           <FavoriteBorderIcon></FavoriteBorderIcon>
         </Grid>

@@ -2,7 +2,7 @@ import React from "react";
 import { Container, Grid, Typography, Input, Button } from "@material-ui/core";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import { useSelector, useDispatch } from "react-redux";
-
+import { useHistory } from "react-router-dom";
 import Header from "../components/Header";
 import Post from "../components/Post";
 // import Post2 from "../components/Post2";
@@ -12,7 +12,7 @@ import { actionCreators as postActions } from "../redux/module/post";
 
 const PostList = () => {
   const dispatch = useDispatch();
-
+  const history = useHistory();
   const post_list = useSelector((state) => state.post.list);
 
   React.useEffect(() => {
@@ -46,6 +46,7 @@ const PostList = () => {
             cursor: "pointer",
           }}
           color="secondary"
+          onClick={() => history.push("/postWrite")}
         ></AddCircleIcon>
       </Grid>
     </>
