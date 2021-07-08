@@ -11,14 +11,23 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import moment from "moment";
 
+import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 const Post = (props) => {
-  const { contents, image_url, insert_dt, user_info, like_cnt, type } = props;
+  const {
+    contents,
+    image_url,
+    insert_dt,
+    user_info,
+    like_cnt,
+    type,
+    id,
+  } = props;
   const { user_profile, user_name, user_id } = user_info;
 
   const [showUpdateBtn, setShowUpdateBtn] = React.useState(false);
   const userInfo = useSelector((state) => state.user.user);
-
+  const history = useHistory();
   React.useEffect(() => {
     if (userInfo !== null) {
       if (userInfo.uid === user_id) {
@@ -49,7 +58,17 @@ const Post = (props) => {
           <Grid style={{ display: "flex" }} direction="row" alignItems="center">
             <Typography>19시간전</Typography>
             {showUpdateBtn ? (
-              <Button variant="outlined" style={{ marginLeft: "20px" }}>
+              <Button
+                variant="outlined"
+                style={{ marginLeft: "20px" }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  history.push({
+                    pathname: `/postUpdate/${id}`,
+                    state: { post_info: props },
+                  });
+                }}
+              >
                 수정
               </Button>
             ) : (
@@ -116,9 +135,7 @@ export const Post1Box = ({ contents, image_url, like_cnt }) => {
           alignItems="center"
           style={{ marginTop: "20px" }}
         >
-          <Typography>좋아요 {likeCnt}개</Typography>
-
-          <FavoriteBorderIcon></FavoriteBorderIcon>
+          <LikeBox likeCnt={likeCnt}></LikeBox>
         </Grid>
       </Container>
     </>
@@ -164,9 +181,7 @@ export const Post2Box = ({ contents, image_url, like_cnt }) => {
           alignItems="center"
           style={{ marginTop: "20px" }}
         >
-          <Typography>좋아요 {likeCnt}개</Typography>
-
-          <FavoriteBorderIcon></FavoriteBorderIcon>
+          <LikeBox likeCnt={likeCnt}></LikeBox>
         </Grid>
       </Container>
     </>
@@ -213,12 +228,35 @@ export const Post3Box = ({ contents, image_url, like_cnt }) => {
           alignItems="center"
           style={{ marginTop: "20px" }}
         >
-          <Typography>좋아요 {likeCnt}개</Typography>
-
-          <FavoriteBorderIcon></FavoriteBorderIcon>
+          <LikeBox likeCnt={likeCnt}></LikeBox>
         </Grid>
       </Container>
     </>
+  );
+};
+
+export const LikeBox = ({ likeCnt }) => {
+  const [is_liked, setIsLiked] = React.useState(false);
+  return (
+    <Grid
+      style={{
+        width: "100%",
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+      }}
+      onClick={(e) => {
+        e.stopPropagation();
+        setIsLiked(!is_liked);
+      }}
+    >
+      <Typography>좋아요 {likeCnt}개</Typography>
+      {is_liked ? (
+        <FavoriteIcon></FavoriteIcon>
+      ) : (
+        <FavoriteBorderIcon></FavoriteBorderIcon>
+      )}
+    </Grid>
   );
 };
 

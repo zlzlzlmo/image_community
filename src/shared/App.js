@@ -11,6 +11,8 @@ import SignUp from "../pages/SignUp";
 import PostList from "../pages/PostList";
 import PostDetail from "../pages/PostDetail";
 import PostWrite from "../pages/PostWrite";
+import PostUpdate from "../pages/PostUpdate";
+
 import { useDispatch } from "react-redux";
 import { apiKey } from "./firebase";
 import { actionCreators as userActions } from "../redux/module/user";
@@ -29,8 +31,10 @@ function App() {
       <ConnectedRouter history={history}>
         <Route path="/login" component={Login}></Route>
         <Route path="/signUp" component={SignUp}></Route>
-        <Route path="/postDetail" component={PostDetail}></Route>
+        <Route path="/postDetail/:id" component={PostDetail}></Route>
         <Route path="/postWrite" component={PostWrite}></Route>
+        <Route path="/PostUpdate/:id" component={PostUpdate}></Route>
+
         <Route exact path="/" component={PostList}></Route>
       </ConnectedRouter>
     </>

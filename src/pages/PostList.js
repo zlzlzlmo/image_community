@@ -17,8 +17,11 @@ const PostList = () => {
   const post_list = useSelector((state) => state.post.list);
 
   React.useEffect(() => {
-    dispatch(postActions.getPostFB());
+    if (post_list.length === 0) {
+      dispatch(postActions.getPostFB());
+    }
   }, []);
+
   console.log("post_list :", post_list);
   return (
     <>
